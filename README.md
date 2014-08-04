@@ -1,5 +1,5 @@
-Introduction
-============
+Installation & Usage
+====================
 
 AGLIO
 -----
@@ -30,4 +30,12 @@ algio -i input.md -o -
 
 # Disable condensing navigation links
 aglio -i input.md --no-condense -o output.html
+```
+
+API
+---
+
+```bash
+# Run a preview server on http://localhost:3000/
+aglio -i monadex-api.md -s
 ```
