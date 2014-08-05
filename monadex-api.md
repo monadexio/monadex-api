@@ -17,7 +17,7 @@ The common [HTTP Response Status Codes](https://github.com/for-GET/know-your-htt
 # Group Campaign
 Campaign-related resources of *Monadex API*.
 
-## Campaign [/campaign/{id}{?access_token}]
+## Campaign [/campaigns/{id}{?access_token}]
 A single Campaign object. The Campaign resource is the central resource in the Monadex API. It represents one tshirt campaign - a single sellable object.
 
 The Campaign resource has the following attributes:
@@ -28,7 +28,12 @@ The Campaign resource has the following attributes:
 - description
 - length
 - url
-- content
+- goal
+- sold
+- reservations
+- cost
+- price
+- design
 
 The states *id* and *created_at* are assigned by the Monadex API at the moment of creation.
 
@@ -38,26 +43,24 @@ The states *id* and *created_at* are assigned by the Monadex API at the moment o
 
 + Model (application/json)
 
-    JSON representation of Monadex Resource. In addition to representing its state in the JSON form it offers affordances in the form of the HTTP Link header.
-
-    + Headers
-
-            Link: <http:/api.monadex.io/campaigns/42>;rel="self", <http:/api.monadex.io/campaigns/42/star>;rel="star"
+    JSON representation of Monadex Resource.
 
     + Body
 
             {
-                "_links": {
-                    "self": { "href": "/campaigns/42" },
-                    "star": { "href": "/campaigns/42/star" },
-                },
                 "id": "42",
                 "created_at": "2014-04-14T02:15:15Z",
+                "ended_at": "2014-08-02T02:15:15Z",
                 "title": "Title of Campaign",
                 "description": "Description of Campaign",
                 "length": "Length of Campaign",
                 "url": "URL of Campaign",
-                "content": "String contents"
+                "goal": "Number of tshirts for sale",
+                "sold": "Number of tshirts sold",
+                "reservations": "Number of tshirts reserved",
+                "cost": "Cost of one tshirt",
+                "price": "Price of one tshirt",
+                "design": "JSON representation of the tshrit design"
             }
 
 ### Retrieve a Single Campaign [GET]
@@ -71,7 +74,7 @@ To update a Campaign send a JSON with updated value for one or more of the Campa
 + Request (application/json)
 
         {
-            "content": "Updated file contents"
+            "design": "Updated tshirt design"
         }
 
 + Response 200
@@ -81,47 +84,33 @@ To update a Campaign send a JSON with updated value for one or more of the Campa
 ### Delete a Campaign [DELETE]
 + Response 204
 
-## Campaigns Collection [/campaigns{?access_token,since}]
+## Campaigns Collection [/campaigns{?access_token,since,limit}]
 Collection of all Campaigns.
-
-The Campaign Collection resource has the following attribute:
-
-- total
 
 In addition it **embeds** *Campaign Resources* in the Monadex API.
 
-+ Model (application/hal+json)
++ Model (application/json)
 
-    HAL+JSON representation of Campaign Collection Resource. The Campaign resources in collections are embedded. Note the embedded Campaigns resource are incomplete representations of the Campaign in question. Use the respective Campaign link to retrieve its full representation.
-
-    + Headers
-
-            Link: <http:/api.monadex.io/campaigns>;rel="self"
+    JSON representation of Campaign Collection Resource. The Campaign resources in collections are embedded. Note the embedded Campaigns resource are incomplete representations of the Campaign in question. Use the respective Campaign id to retrieve its full representation.
 
     + Body
 
-            {
-                "_links": {
-                    "self": { "href": "/campaigns" }
-                },
-                "_embedded": {
-                    "campaigns": [
-                        {
-                            "_links" : {
-                                "self": { "href": "/campaigns/42" }
-                            },
-                            "id": "42",
-                            "created_at": "2014-04-14T02:15:15Z",
-                            "title": "Title of Campaign",
-                            "description": "Description of Campaign",
-                            "length": "Length of Campaign",
-                            "url": "URL of Campaign",
-                            "content": "String contents"
-                        }
-                    ]
-                },
-                "total": 1
-            }
+            [
+                {
+                    "id": "42",
+                    "created_at": "2014-04-14T02:15:15Z",
+                    "ended_at": "2014-08-02T02:15:15Z",
+                    "title": "Title of Campaign",
+                    "description": "Description of Campaign",
+                    "length": "Length of Campaign",
+                    "url": "URL of Campaign",
+                    "goal": "Number of tshirts for sale",
+                    "sold": "Number of tshirts sold",
+                    "reservations": "Number of tshirts reserved",
+                    "cost": "Cost of one tshirt",
+                    "price": "Price of one tshirt",
+                }
+            ]
 
 ### List All Campaigns [GET]
 + Parameters
@@ -132,7 +121,7 @@ In addition it **embeds** *Campaign Resources* in the Monadex API.
     [Campaigns Collection][]
 
 ### Create a Campaign [POST]
-To create a new Campaign simply provide a JSON hash of the *description* and *content* attributes for the new Campaign.
+To create a new Campaign simply provide a JSON hash of all the attributes except *id* and *created_at*for the new Campaign.
 
 This action requries an `access_token` with `campaign_write` scope.
 
@@ -142,20 +131,26 @@ This action requries an `access_token` with `campaign_write` scope.
 + Request (application/json)
 
         {
+            "title": "Title of Campaign",
             "description": "Description of Campaign",
-            "content": "String content"
+            "length": "Length of Campaign",
+            "url": "URL of Campaign",
+            "goal": "Number of tshirts for sale",
+            "cost": "Cost of one tshirt",
+            "price": "Price of one tshirt",
+            "design": "JSON representation of the tshrit design"
         }
 
 + Response 201
 
     [Campaign][]
 
-## Star [/campaigns/{id}/star{?access_token}]
-Star resource represents a Campaign starred status.
+## End early [/campaigns/{id}/end_early{?access_token}]
+End a Campaign early.
 
-The Star resource has the following attribute:
+The resource has the following attribute:
 
-- starred
+- ended_at
 
 + Parameters
     + id (string) ... ID of the campaign in the form of a hash
@@ -163,35 +158,64 @@ The Star resource has the following attribute:
 
 + Model (application/hal+json)
 
-    HAL+JSON representation of Star Resource.
-
-    + Headers
-
-            Link: <http:/api.monadex.io/campaigns/42/star>;rel="self"
+    JSON representation of Campaign Resource.
 
     + Body
 
             {
-                "_links": {
-                    "self": { "href": "/campaigns/42/star" },
-                },
-                "starred": true
+                "id": "42",
+                "created_at": "2014-08-01T02:15:15Z",
+                "ended_at": "2014-08-02T02:15:15Z",
+                "title": "Title of Campaign",
+                "description": "Description of Campaign",
+                "length": "Length of Campaign",
+                "url": "URL of Campaign",
+                "goal": "Number of tshirts for sale",
+                "sold": "Number of tshirts sold",
+                "reservations": "Number of tshirts reserved",
+                "cost": "Cost of one tshirt",
+                "price": "Price of one tshirt",
+                "design": "JSON representation of the tshrit design"
             }
 
-### Star a Campaign [PUT]
+### End a Campaign early [PUT]
 This action requries an `access_token` with `campaign_write` scope.
 
 + Response 204
 
-### Unstar a Campaign [DELETE]
+## Duplicate [/campaigns/{id}/duplicate{?access_token}]
+Duplicate a Campaign.
+
++ Parameters
+    + id (string) ... ID of the campaign in the form of a hash
+    + access_token (string, optional) ... Monadex API access token.
+
++ Model (application/hal+json)
+
+    JSON representation of Campaign Resource.
+
+    + Body
+
+            {
+                "id": "42",
+                "created_at": "2014-08-01T02:15:15Z",
+                "ended_at": "2014-08-02T02:15:15Z",
+                "title": "Title of Campaign",
+                "description": "Description of Campaign",
+                "length": "Length of Campaign",
+                "url": "URL of Campaign",
+                "goal": "Number of tshirts for sale",
+                "sold": "Number of tshirts sold",
+                "reservations": "Number of tshirts reserved",
+                "cost": "Cost of one tshirt",
+                "price": "Price of one tshirt",
+                "design": "JSON representation of the tshrit design"
+            }
+
+### Duplicate a Campaign[PUT]
 This action requries an `access_token` with `campaign_write` scope.
 
 + Response 204
-
-### Check if a Campaign is Starred [GET]
-+ Response 200
-
-    [Star][]
 
 # Group Access Authorization and Control
 Access and Control of *Monadex API* OAuth token.
