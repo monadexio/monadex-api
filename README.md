@@ -9,6 +9,15 @@ Install aglio via NPM. You need Node.js installed and you may need to use `sudo`
 npm install -g aglio
 ```
 
+API
+---
+
+```bash
+# Run a preview server on http://localhost:3000/
+aglio -i monadex-api.md -s
+```
+More examples
+
 ```bash
 # Default template
 aglio -i input.md -o output.html
@@ -32,10 +41,3 @@ algio -i input.md -o -
 aglio -i input.md --no-condense -o output.html
 ```
 
-API
----
-
-```bash
-# Run a preview server on http://localhost:3000/
-aglio -i monadex-api.md -s
-```
