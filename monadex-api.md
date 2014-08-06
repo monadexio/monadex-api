@@ -217,6 +217,55 @@ This action requries an `access_token` with `campaign_write` scope.
 
 + Response 204
 
+## Buy [/campaigns/{id}/buy{?quantity,size,style,access_token}]
+Buy a Campaign.
+
++ Parameters
+    + quantity (string) ... Number of tshirt to buy
+    + size (string) ... Size of tshirt
+    + style (string) ... Style of tshirt
+    + firstname(string) ... Firstname of buyer,
+    + lastname(string) ... Lastname of buyer,
+    + phone(string) ... Phone of buyer,
+    + address(string) ... Address of buyer
+    + city(string) ... City of buyer
+    + zipcode(string) ... Zipcode of buyer
+    + state(string) ... State of buyer
+    + country(string) ... Country of buyer
+    + email (string) ... Email of buyer
+    + number (string) ... Number of buyer's credit card
+    + exp_month(string) ... Expiration month of the card
+    + exp_year(string) ... Expiration year of the card
+    + cvc(string) ...  CVC of the card
+    + access_token (string, optional) ... Monadex API access token.
+
++ Model (application/hal+json)
+
+    JSON representation of Campaign Resource.
+
+    + Body
+
+            {
+                "id": "42",
+                "created_at": "2014-08-01T02:15:15Z",
+                "ended_at": "2014-08-02T02:15:15Z",
+                "title": "Title of Campaign",
+                "description": "Description of Campaign",
+                "length": "Length of Campaign",
+                "url": "URL of Campaign",
+                "goal": "Number of tshirts for sale",
+                "sold": "Number of tshirts sold",
+                "reservations": "Number of tshirts reserved",
+                "cost": "Cost of one tshirt",
+                "price": "Price of one tshirt",
+                "design": "JSON representation of the tshrit design"
+            }
+
+### Buy a Campaign[PUT]
+This action requries an `access_token` with `campaign_write` scope.
+
++ Response 204
+
 # Group Users
 Page and filter the users.
 
