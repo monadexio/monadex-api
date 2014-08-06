@@ -217,8 +217,8 @@ This action requries an `access_token` with `campaign_write` scope.
 
 + Response 204
 
-## Buy [/campaigns/{id}/buy{?quantity,size,style,access_token}]
-Buy a Campaign.
+## Order [/campaigns/{id}/order{?quantity,size,style,access_token}]
+Place a order in a Campaign.
 
 + Parameters
     + quantity (string) ... Number of tshirt to buy
@@ -248,23 +248,19 @@ Buy a Campaign.
             {
                 "id": "42",
                 "created_at": "2014-08-01T02:15:15Z",
-                "ended_at": "2014-08-02T02:15:15Z",
-                "title": "Title of Campaign",
-                "description": "Description of Campaign",
-                "length": "Length of Campaign",
-                "url": "URL of Campaign",
-                "goal": "Number of tshirts for sale",
-                "sold": "Number of tshirts sold",
-                "reservations": "Number of tshirts reserved",
-                "cost": "Cost of one tshirt",
-                "price": "Price of one tshirt",
-                "design": "JSON representation of the tshrit design"
+                "size": "Size of tshirt",
+                "style": "Style of tshirt",
+                "buyer": "Id of the buyer",
+                "campaign": "Id of the campaign",
+                "status": "reserved"
             }
 
-### Buy a Campaign[PUT]
+### Order a Campaign[PUT]
 This action requries an `access_token` with `campaign_write` scope.
 
-+ Response 204
++ Response 200
+
+    [Order][]
 
 # Group Users
 Page and filter the users.
