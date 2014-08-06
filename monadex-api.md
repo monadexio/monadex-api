@@ -156,7 +156,7 @@ The resource has the following attribute:
     + id (string) ... ID of the campaign in the form of a hash
     + access_token (string, optional) ... Monadex API access token.
 
-+ Model (application/hal+json)
++ Model (application/json)
 
     JSON representation of Campaign Resource.
 
@@ -190,7 +190,7 @@ Duplicate a Campaign.
     + id (string) ... ID of the campaign in the form of a hash
     + access_token (string, optional) ... Monadex API access token.
 
-+ Model (application/hal+json)
++ Model (application/json)
 
     JSON representation of Campaign Resource.
 
@@ -239,7 +239,7 @@ Place a order in a Campaign.
     + cvc(string) ...  CVC of the card
     + access_token (string, optional) ... Monadex API access token.
 
-+ Model (application/hal+json)
++ Model (application/json)
 
     JSON representation of Campaign Resource.
 
