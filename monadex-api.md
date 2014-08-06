@@ -217,38 +217,31 @@ This action requries an `access_token` with `campaign_write` scope.
 
 + Response 204
 
-# Group Access Authorization and Control
-Access and Control of *Monadex API* OAuth token.
+# Group Users
+Page and filter the users.
 
-## Authorization [/authorization]
-Authorization Resource represents an authorization granted to the user. You can **only** access your own authorization, and only through **Basic Authentication**.
+## User [/users]
+User Resource represents an user.
 
-The Authorization Resource has the following attribute:
+The User Resource has the following attribute:
 
-- token
-- scopes
+- name
+- email
+- password
+- openid
 
-Where *token* represents an OAuth token and *scopes* is an array of scopes granted for the given authorization. At this moment the only available scope is `campaign_write`.
-
-+ Model (application/hal+json)
-
-    + Headers
-
-            Link: <http:/api.monadex.io/authorizations/1>;rel="self"
++ Model (application/json)
 
     + Body
 
             {
-                "_links": {
-                    "self": { "href": "/authorizations" },
-                },
-                "scopes": [
-                    "campaign_write"
-                ],
-                "token": "abc123"
+                "name": "Name of User",
+                "email": "Email of User",
+                "password": "Password of User",
+                "openid": "OpenId of User"
             }
 
-### Retrieve Authorization [GET]
+### Retrieve User [GET]
 + Request
     + Headers
 
@@ -256,27 +249,22 @@ Where *token* represents an OAuth token and *scopes* is an array of scopes grant
 
 + Response 200
 
-    [Authorization][]
+    [User][]
 
-### Create Authorization [POST]
+### Create User [POST]
 + Request (application/json)
-    + Headers
-
-            Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
-
     + Body
 
             {
-                "scopes": [
-                    "campaign_write"
-                ]
+                "email": "Email of User",
+                "password": "Password of User"
             }
 
 + Response 201
 
-    [Authorization][]
+    [User][]
 
-### Remove an Authorization [DELETE]
+### Remove a User [DELETE]
 + Request
     + Headers
 
