@@ -24,6 +24,7 @@ The Campaign resource has the following attributes:
 
 - id
 - created_at
+- ended_at
 - title
 - description
 - length
@@ -108,7 +109,7 @@ In addition it **embeds** *Campaign Resources* in the Monadex API.
                     "sold": "Number of tshirts sold",
                     "reservations": "Number of tshirts reserved",
                     "cost": "Cost of one tshirt",
-                    "price": "Price of one tshirt",
+                    "price": "Price of one tshirt"
                 }
             ]
 
@@ -248,6 +249,7 @@ Place a order in a Campaign.
             {
                 "id": "42",
                 "created_at": "2014-08-01T02:15:15Z",
+                "quantity": "No of tshirt to buy",
                 "size": "Size of tshirt",
                 "style": "Style of tshirt",
                 "buyer": "Id of the buyer",
