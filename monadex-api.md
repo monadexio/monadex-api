@@ -210,26 +210,8 @@ Duplicate a Campaign.
 
 + Response 204
 
-## Order [/campaigns/{id}/order{?quantity,size,style}]
+## Order [/campaigns/{id}/order]
 Place an order in a Campaign.
-
-+ Parameters
-    + quantity (string) ... Number of tshirt to buy
-    + size (string) ... Size of tshirt
-    + style (string) ... Style of tshirt
-    + firstname(string) ... Firstname of buyer,
-    + lastname(string) ... Lastname of buyer,
-    + phone(string) ... Phone of buyer,
-    + address(string) ... Address of buyer
-    + city(string) ... City of buyer
-    + zipcode(string) ... Zipcode of buyer
-    + state(string) ... State of buyer
-    + country(string) ... Country of buyer
-    + email (string) ... Email of buyer
-    + number (string) ... Number of buyer's credit card
-    + exp_month(string) ... Expiration month of the card
-    + exp_year(string) ... Expiration year of the card
-    + cvc(string) ...  CVC of the card
 
 + Model (application/json)
 
@@ -248,7 +230,28 @@ Place an order in a Campaign.
                 "status": "reserved"
             }
 
-### Order a Campaign[PUT]
+### Order a Campaign[POST]
+
++ Request (application/json)
+
+    {
+        "quantity": "Number of tshirt to buy",
+        "size": "Size of tshirt",
+        "style": "Style of tshirt",
+        "firstname": "Firstname of buyer,",
+        "lastname": "Lastname of buyer,",
+        "phone": "Phone of buyer,",
+        "address": "Address of buyer",
+        "city": "City of buyer",
+        "zipcode": "Zipcode of buyer",
+        "state": "State of buyer",
+        "country": "Country of buyer",
+        "email": "Email of buyer",
+        "number": "Number of buyer's credit card",
+        "exp_month": "Expiration month of the card",
+        "exp_year": "Expiration year of the card",
+        "cvc": "CVC of the card"
+    }
 
 + Response 200
 
