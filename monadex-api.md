@@ -31,7 +31,6 @@ The Campaign resource has the following attributes:
 - url
 - goal
 - sold
-- reservations
 - cost
 - price
 - design
@@ -58,7 +57,6 @@ The states *id* and *created_at* are assigned by the Monadex API at the moment o
                 "url": "URL of Campaign",
                 "goal": "Number of tshirts for sale",
                 "sold": "Number of tshirts sold",
-                "reservations": "Number of tshirts reserved",
                 "cost": "Cost of one tshirt",
                 "price": "Price of one tshirt",
                 "design": "JSON representation of the tshrit design",
@@ -108,7 +106,6 @@ In addition it **embeds** *Campaign Resources* in the Monadex API.
                     "url": "URL of Campaign",
                     "goal": "Number of tshirts for sale",
                     "sold": "Number of tshirts sold",
-                    "reservations": "Number of tshirts reserved",
                     "cost": "Cost of one tshirt",
                     "price": "Price of one tshirt"
                 }
@@ -168,7 +165,6 @@ The resource has the following attribute:
                 "url": "URL of Campaign",
                 "goal": "Number of tshirts for sale",
                 "sold": "Number of tshirts sold",
-                "reservations": "Number of tshirts reserved",
                 "cost": "Cost of one tshirt",
                 "price": "Price of one tshirt",
                 "design": "JSON representation of the tshrit design"
@@ -200,7 +196,6 @@ Duplicate a Campaign.
                 "url": "URL of Campaign",
                 "goal": "Number of tshirts for sale",
                 "sold": "Number of tshirts sold",
-                "reservations": "Number of tshirts reserved",
                 "cost": "Cost of one tshirt",
                 "price": "Price of one tshirt",
                 "design": "JSON representation of the tshrit design"
