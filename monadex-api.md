@@ -234,24 +234,24 @@ Place an order in a Campaign.
 
 + Request (application/json)
 
-    {
-        "quantity": "Number of tshirt to buy",
-        "size": "Size of tshirt",
-        "style": "Style of tshirt",
-        "firstname": "Firstname of buyer,",
-        "lastname": "Lastname of buyer,",
-        "phone": "Phone of buyer,",
-        "address": "Address of buyer",
-        "city": "City of buyer",
-        "zipcode": "Zipcode of buyer",
-        "state": "State of buyer",
-        "country": "Country of buyer",
-        "email": "Email of buyer",
-        "number": "Number of buyer's credit card",
-        "exp_month": "Expiration month of the card",
-        "exp_year": "Expiration year of the card",
-        "cvc": "CVC of the card"
-    }
+        {
+            "quantity": "Number of tshirt to buy",
+            "size": "Size of tshirt",
+            "style": "Style of tshirt",
+            "firstname": "Firstname of buyer,",
+            "lastname": "Lastname of buyer,",
+            "phone": "Phone of buyer,",
+            "address": "Address of buyer",
+            "city": "City of buyer",
+            "zipcode": "Zipcode of buyer",
+            "state": "State of buyer",
+            "country": "Country of buyer",
+            "email": "Email of buyer",
+            "number": "Number of buyer's credit card",
+            "exp_month": "Expiration month of the card",
+            "exp_year": "Expiration year of the card",
+            "cvc": "CVC of the card"
+        }
 
 + Response 200
 
@@ -309,7 +309,7 @@ Collection of all Users.
 
 ### List All Users [GET]
 + Parameters
-        + limit (optional, string) ... Limit number of users listed
+    + limit (optional, string) ... Limit number of users listed
 
 + Response 200
 
