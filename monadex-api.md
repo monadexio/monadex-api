@@ -4,7 +4,7 @@ FORMAT: 1A
 Monadex API is a **tshirt designer service** similar to [Teespring](http://www.teespring.com).
 
 ## Authentication
-*Monadex API* uses both OAuth and HTTP Basic Authentication.
+*Monadex API* uses HTTP Basic Authentication and persistent login sessions to save user credential.
 
 ## Media Types
 Where applicable this API uses the [JSON](http://en.wikipedia.org/wiki/Json) to represent resources states and affordances.
@@ -17,7 +17,7 @@ The common [HTTP Response Status Codes](https://github.com/for-GET/know-your-htt
 # Group Campaign
 Campaign-related resources of *Monadex API*.
 
-## Campaign [/campaigns/{id}{?access_token}]
+## Campaign [/campaigns/{id}]
 A single Campaign object. The Campaign resource is the central resource in the Monadex API. It represents one tshirt campaign - a single sellable object.
 
 The Campaign resource has the following attributes:
@@ -35,12 +35,12 @@ The Campaign resource has the following attributes:
 - cost
 - price
 - design
+- orders
 
 The states *id* and *created_at* are assigned by the Monadex API at the moment of creation.
 
 + Parameters
     + id (string) ... ID of the campaign in the form of a hash.
-    + access_token (string, optional) ... Monadex API access token.
 
 + Model (application/json)
 
@@ -61,7 +61,8 @@ The states *id* and *created_at* are assigned by the Monadex API at the moment o
                 "reservations": "Number of tshirts reserved",
                 "cost": "Cost of one tshirt",
                 "price": "Price of one tshirt",
-                "design": "JSON representation of the tshrit design"
+                "design": "JSON representation of the tshrit design",
+                "orders": "Orders of the campaign"
             }
 
 ### Retrieve a Single Campaign [GET]
@@ -85,7 +86,7 @@ To update a Campaign send a JSON with updated value for one or more of the Campa
 ### Delete a Campaign [DELETE]
 + Response 204
 
-## Campaigns Collection [/campaigns{?access_token,since,limit}]
+## Campaigns Collection [/campaigns{?since,limit}]
 Collection of all Campaigns.
 
 In addition it **embeds** *Campaign Resources* in the Monadex API.
@@ -124,11 +125,6 @@ In addition it **embeds** *Campaign Resources* in the Monadex API.
 ### Create a Campaign [POST]
 To create a new Campaign simply provide a JSON hash of all the attributes except *id* and *created_at*for the new Campaign.
 
-This action requries an `access_token` with `campaign_write` scope.
-
-+ Parameters
-    + access_token (string, optional) ... Monadex API access token.
-
 + Request (application/json)
 
         {
@@ -146,7 +142,7 @@ This action requries an `access_token` with `campaign_write` scope.
 
     [Campaign][]
 
-## End early [/campaigns/{id}/end_early{?access_token}]
+## End early [/campaigns/{id}/end_early]
 End a Campaign early.
 
 The resource has the following attribute:
@@ -155,7 +151,6 @@ The resource has the following attribute:
 
 + Parameters
     + id (string) ... ID of the campaign in the form of a hash
-    + access_token (string, optional) ... Monadex API access token.
 
 + Model (application/json)
 
@@ -180,16 +175,14 @@ The resource has the following attribute:
             }
 
 ### End a Campaign early [PUT]
-This action requries an `access_token` with `campaign_write` scope.
 
 + Response 204
 
-## Duplicate [/campaigns/{id}/duplicate{?access_token}]
+## Duplicate [/campaigns/{id}/duplicate]
 Duplicate a Campaign.
 
 + Parameters
     + id (string) ... ID of the campaign in the form of a hash
-    + access_token (string, optional) ... Monadex API access token.
 
 + Model (application/json)
 
@@ -214,12 +207,11 @@ Duplicate a Campaign.
             }
 
 ### Duplicate a Campaign[PUT]
-This action requries an `access_token` with `campaign_write` scope.
 
 + Response 204
 
-## Order [/campaigns/{id}/order{?quantity,size,style,access_token}]
-Place a order in a Campaign.
+## Order [/campaigns/{id}/order{?quantity,size,style}]
+Place an order in a Campaign.
 
 + Parameters
     + quantity (string) ... Number of tshirt to buy
@@ -238,7 +230,6 @@ Place a order in a Campaign.
     + exp_month(string) ... Expiration month of the card
     + exp_year(string) ... Expiration year of the card
     + cvc(string) ...  CVC of the card
-    + access_token (string, optional) ... Monadex API access token.
 
 + Model (application/json)
 
@@ -258,7 +249,6 @@ Place a order in a Campaign.
             }
 
 ### Order a Campaign[PUT]
-This action requries an `access_token` with `campaign_write` scope.
 
 + Response 200
 
@@ -267,36 +257,60 @@ This action requries an `access_token` with `campaign_write` scope.
 # Group Users
 Page and filter the users.
 
-## User [/users]
+## User [/users/{id}]
 User Resource represents an user.
 
 The User Resource has the following attribute:
 
+- id
 - name
 - email
 - password
-- openid
 
 + Model (application/json)
 
     + Body
 
             {
+                "id": "37,
                 "name": "Name of User",
                 "email": "Email of User",
-                "password": "Password of User",
-                "openid": "OpenId of User"
+                "password": "Password of User"
             }
 
 ### Retrieve User [GET]
-+ Request
-    + Headers
-
-            Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
-
 + Response 200
 
     [User][]
+
+### Remove a User [DELETE]
++ Response 204
+
+## Users Collection [/users{?limit}]
+Collection of all Users.
+
++ Model (application/json)
+
+    JSON representation of Users Collection Resource.
+
+    + Body
+
+            [
+                {
+                    "id": "37,
+                    "name": "Name of User",
+                    "email": "Email of User",
+                    "password": "Password of User"
+                }
+            ]
+
+### List All Users [GET]
++ Parameters
+        + limit (optional, string) ... Limit number of users listed
+
++ Response 200
+
+    [Users Collection][]
 
 ### Create User [POST]
 + Request (application/json)
@@ -310,11 +324,3 @@ The User Resource has the following attribute:
 + Response 201
 
     [User][]
-
-### Remove a User [DELETE]
-+ Request
-    + Headers
-
-            Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
-
-+ Response 204
