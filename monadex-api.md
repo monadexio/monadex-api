@@ -82,9 +82,11 @@ To update a Campaign send a JSON with updated value for one or more of the Campa
     [Campaign][]
 
 ### Delete a Campaign [DELETE]
-+ Response 204
++ Response 200
 
-## Campaigns Collection [/campaigns{?since,limit}]
+    [Campaign][]
+
+## Campaigns Collection [/campaigns]
 Collection of all Campaigns.
 
 In addition it **embeds** *Campaign Resources* in the Monadex API.
@@ -112,9 +114,6 @@ In addition it **embeds** *Campaign Resources* in the Monadex API.
             ]
 
 ### List All Campaigns [GET]
-+ Parameters
-    + since (optional, string) ... Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` Only campaigns updated at or after this time are returned.
-
 + Response 200
 
     [Campaigns Collection][]
@@ -149,30 +148,11 @@ The resource has the following attribute:
 + Parameters
     + id (string) ... ID of the campaign in the form of a hash
 
-+ Model (application/json)
+### End a Campaign early [PATCH]
 
-    JSON representation of Campaign Resource.
++ Response 200
 
-    + Body
-
-            {
-                "id": "42",
-                "created_at": "2014-08-01T02:15:15Z",
-                "ended_at": "2014-08-02T02:15:15Z",
-                "title": "Title of Campaign",
-                "description": "Description of Campaign",
-                "length": "Length of Campaign",
-                "url": "URL of Campaign",
-                "goal": "Number of tshirts for sale",
-                "sold": "Number of tshirts sold",
-                "cost": "Cost of one tshirt",
-                "price": "Price of one tshirt",
-                "design": "JSON representation of the tshrit design"
-            }
-
-### End a Campaign early [PUT]
-
-+ Response 204
+    [Campaign][]
 
 ## Duplicate [/campaigns/{id}/duplicate]
 Duplicate a Campaign.
@@ -180,33 +160,17 @@ Duplicate a Campaign.
 + Parameters
     + id (string) ... ID of the campaign in the form of a hash
 
-+ Model (application/json)
+### Duplicate a Campaign[GET]
 
-    JSON representation of Campaign Resource.
++ Response 200
 
-    + Body
-
-            {
-                "id": "42",
-                "created_at": "2014-08-01T02:15:15Z",
-                "ended_at": "2014-08-02T02:15:15Z",
-                "title": "Title of Campaign",
-                "description": "Description of Campaign",
-                "length": "Length of Campaign",
-                "url": "URL of Campaign",
-                "goal": "Number of tshirts for sale",
-                "sold": "Number of tshirts sold",
-                "cost": "Cost of one tshirt",
-                "price": "Price of one tshirt",
-                "design": "JSON representation of the tshrit design"
-            }
-
-### Duplicate a Campaign[PUT]
-
-+ Response 204
+    [Campaign][]
 
 ## Order [/campaigns/{id}/order]
 Place an order in a Campaign.
+
++ Parameters
+    + id (string) ... ID of the campaign in the form of a hash
 
 + Model (application/json)
 
@@ -265,6 +229,9 @@ The User Resource has the following attribute:
 - email
 - password
 
++ Parameters
+    + id (string) ... ID of the user in the form of a hash
+
 + Model (application/json)
 
     + Body
@@ -282,9 +249,11 @@ The User Resource has the following attribute:
     [User][]
 
 ### Remove a User [DELETE]
-+ Response 204
++ Response 200
 
-## Users Collection [/users{?limit}]
+    [User][]
+
+## Users Collection [/users]
 Collection of all Users.
 
 + Model (application/json)
@@ -303,9 +272,6 @@ Collection of all Users.
             ]
 
 ### List All Users [GET]
-+ Parameters
-    + limit (optional, string) ... Limit number of users listed
-
 + Response 200
 
     [Users Collection][]
